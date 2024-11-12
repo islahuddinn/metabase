@@ -1,80 +1,36 @@
 {
-  // See https://go.microsoft.com/fwlink/?LinkId=733558
-  // for the documentation about the tasks.json format
   "version": "2.0.0",
+  "options": {
+    "cwd": "${workspaceFolder}"
+  },
   "tasks": [
     {
-      "label": "Run front-end and back-end",
-      "type": "shell",
-      "command": "yarn dev",
-      "presentation": {
-        "reveal": "always"
+      "label": "folder-open",
+      "dependsOn": ["eslint-check"],
+      "runOptions": {
+        "runOn": "folderOpen"
       },
-      "problemMatcher": [],
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
-    },
-    {
-      "label": "Format front-end code",
-      "type": "shell",
-      "command": "yarn prettier",
-      "presentation": {
-        "reveal": "always",
-        "panel": "dedicated",
-        "clear": true
-      }
-    },
-    {
-      "label": "Run front-end linters",
-      "type": "shell",
-      "command": "yarn lint",
-      "presentation": {
-        "reveal": "always",
-        "panel": "dedicated",
-        "clear": true
-      },
+      "hide": true,
       "problemMatcher": []
     },
     {
-      "label": "Run embedding sdk dev commands",
-      "dependsOn": [
-        "embedding-sdk:dev:dts",
-        "embedding-sdk:dev:webpack",
-        "embedding-sdk:dev:fixup",
-      ],
-      "problemMatcher": []
-    },
-    {
-      "label": "embedding-sdk:dev:dts",
-      "type": "shell",
-      "command": "yarn embedding-sdk:dev:dts",
-      "presentation": {
-        "group": "sdk:dev"
+      "label": "eslint-check",
+      "type": "process",
+      "command": "sh",
+      "args": [".vscode/eslint-check.sh"],
+      "windows": {
+        "command": "cmd.exe",
+        "args": ["/d", "/c", ".vscode\\eslint-check.cmd"]
       },
+      "isBackground": true,
+      "hide": true,
       "problemMatcher": [],
-      "isBackground": true // this removes the spinning indicator
-    },
-    {
-      "label": "embedding-sdk:dev:webpack",
-      "type": "shell",
-      "command": "yarn embedding-sdk:dev:webpack",
       "presentation": {
-        "group": "sdk:dev"
-      },
-      "problemMatcher": [],
-      "isBackground": true
-    },
-    {
-      "label": "embedding-sdk:dev:fixup",
-      "type": "shell",
-      "command": "yarn embedding-sdk:dev:fixup",
-      "presentation": {
-        "group": "sdk:dev"
-      },
-      "problemMatcher": [],
-      "isBackground": true
+        "reveal": "never",
+        "panel": "dedicated",
+        "echo": false,
+        "close": true
+      }
     }
   ]
 }
